@@ -1,15 +1,14 @@
 import { useState, useRef } from 'react';
 import { Grid, Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
 import ImageSelector from './ImageSelector';
-import ConvertToPDF from './Conversion';
 import PDFView from './PDFView';
 import jsPDF from 'jspdf';
 
 const Homepage = () => {
  const [selectedImages, setSelectedImages] = useState([]);
- const [conversionStatus, setConversionStatus] = useState('idle'); // 'idle', 'processing', 'success', 'error'
+ const [conversionStatus, setConversionStatus] = useState('idle');
  const [convertedPdf, setConvertedPdf] = useState(null);
- const pdfRef = useRef(null); // Ref for PDF download
+ const pdfRef = useRef(null);
 
  const handleConvert = async () => {
     setConversionStatus('processing');
