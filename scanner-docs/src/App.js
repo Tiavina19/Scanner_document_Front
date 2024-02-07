@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import './App.css'; 
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGooglePlusG, faFacebookF, faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
@@ -23,8 +23,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/sign-up', { 
-        username,
+      const response = await axios.post('http://localhost:8080/sign-up', {
         email,
         password
       });
