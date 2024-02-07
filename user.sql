@@ -1,12 +1,13 @@
 -- Table user
 CREATE TABLE "user" (
-    id INT PRIMARY KEY,
+    id serial PRIMARY KEY,
     name VARCHAR(255),
-    email VARCHAR(255)
+    email VARCHAR(255),
+    password VARCHAR(255)
 );
 
 -- Insert
-INSERT INTO "user" (id, nom, email) VALUES 
-  (1, 'Haingo Harizo', 'hei.harizo@gmail.com'),
-  (2, 'Ando N''irina', 'hei.ando.1007@gmail.com'),
-  (3, 'David Deux', 'hei.tiavina@gmai.com');
+INSERT INTO "user" (nom, email, password) VALUES 
+  ('Haingo Harizo', 'hei.harizo@gmail.com', 'hariijess'),
+  ( 'Ando N''irina', 'hei.ando.1007@gmail.com','andokezia'),
+  ('David Deux', 'hei.tiavina@gmai.com','deux');
