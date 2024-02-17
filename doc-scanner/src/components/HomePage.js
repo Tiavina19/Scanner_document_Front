@@ -8,8 +8,6 @@ import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import jsPDF from "jspdf";
 import Typography from '@mui/material/Typography';
-import "./HomePage.css";
-import Grid from '@mui/material/Grid';
 
 function HomePage() {
   
