@@ -1,82 +1,236 @@
-import { useState, useRef } from 'react';
-import { Grid, Box, Typography, Button, CircularProgress, Alert } from '@mui/material';
-import ImageSelector from './ImageSelector';
-import PDFView from './PDFView';
-import jsPDF from 'jspdf';
+import React, { useState } from "react";
+import { Button } from "@mui/material";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
+import ImageIcon from '@mui/icons-material/Image';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import Camera, { FACING_MODES } from "react-html5-camera-photo";
+import "react-html5-camera-photo/build/css/index.css";
+import jsPDF from "jspdf";
+import Typography from '@mui/material/Typography';
+import "./HomePage.css";
+import Grid from '@mui/material/Grid';
 
-const Homepage = () => {
- const [selectedImages, setSelectedImages] = useState([]);
- const [conversionStatus, setConversionStatus] = useState('idle');
- const [convertedPdf, setConvertedPdf] = useState(null);
- const pdfRef = useRef(null);
+function HomePage() {
+  
+  const [dataUri, setDataUri] = React.useState("");
+  const [showCamera, setShowCamera] = React.useState(false);
+  const [scanMode, setScanMode] = React.useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
- const handleConvert = async () => {
-    setConversionStatus('processing');
-    try {
-      const doc = new jsPDF();
-      await Promise.all(selectedImages.map((image, index) => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = function (e) {
-            const imgData = e.target.result;
-            doc.addImage(imgData, 'JPEG', 10, 10, 50, 50);
-            resolve();
-          };
-          reader.onerror = function (e) {
-            reject(new Error("Failed to load image"));
-          };
-          reader.readAsDataURL(image);
-        });
-      }));
-      doc.save(`converted.pdf`);
-      setConversionStatus('success');
-      setConvertedPdf(doc.output());
-   } catch (err) {
-      console.error(err);
-      setConversionStatus('error');
-   }
- };
+  function handleScanDocument() {
+    
+    setShowCamera(true);
+    setScanMode("document");
+  }
 
- const handleDownload = () => {
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(new Blob([convertedPdf], { type: 'application/pdf' }));
-  link.download = 'converted.pdf';
-  link.click();
- };
+  function handleScanIdCard() {
+    setShowCamera(true);
+    setScanMode("idcard");
+  }
 
- return (
-    <Box display="flex" justifyContent="center" alignContent="center" bgcolor="lightgrey">
-      <Grid container direction="column" spacing={2} textAlign={'center'}>
-        <Grid item>
-          <Typography variant="h4" color="primary">Convertisseur d'images en PDF</Typography>
-        </Grid>
-        <Grid item>
-          <ImageSelector onSelect={(images) => setSelectedImages(images)} />
-        </Grid>
-        <Grid item>
-          {conversionStatus === 'processing' && (
-            <CircularProgress />
-          )}
-          {conversionStatus === 'success' && (
-            <Alert severity="success">Conversion terminée !</Alert>
-          )}
-          {conversionStatus === 'error' && (
-            <Alert severity="error">Une erreur est survenue.</Alert>
-          )}
-        </Grid>
-        {conversionStatus === 'success' && (
-          <Grid item>
-            <PDFView pdfs={[{ name: 'converted.pdf', data: convertedPdf }]} pdfRef={pdfRef} onDownload={handleDownload} />
-          </Grid>
-        )}
-        <Grid item>
-          <Button variant="contained" color="primary" onClick={handleConvert} disabled={selectedImages.length === 0}>
+  function handleImportFile() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = false;
+    input.accept = '.txt,.docx,.rtf';
+    input.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      setSelectedFile(file);
+    });
+    input.click();
+  }
+
+  function handleConvertToPdf1() {
+    if (!selectedFile || !selectedFile.name.endsWith('.txt')) {
+      alert('Please select a .txt file before converting to PDF.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const textData = event.target.result;
+      const pdf = new jsPDF();
+      pdf.text(textData,  10,  10);
+      pdf.save(`${selectedFile.name}.pdf`);
+    };
+    reader.readAsText(selectedFile);
+  }
+
+  function handleImportImage() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = false;
+    input.accept = '.img,.jpg,.jpeg';
+    input.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      setSelectedImage(file);
+    });
+    input.click();
+  }
+
+  function handleConvertToPdf2() {
+    if (!selectedImage) {
+      alert('Please select an image before converting to PDF.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const imageData = event.target.result;
+      const pdf = new jsPDF();
+      pdf.addImage(imageData, 'JPEG',  10,  10);
+      pdf.save(`${selectedImage.name}.pdf`);
+    };
+    reader.readAsDataURL(selectedImage);
+  }
+
+  function handleTakePhoto(dataUri) {
+    setDataUri(dataUri);
+    setShowCamera(false);
+
+    const pdf = new jsPDF();
+    pdf.addImage(dataUri, "JPEG", 10, 10);
+    pdf.save(`${scanMode}.pdf`);
+  }
+
+  return (
+    <div style={{
+      alignContent: "center"
+    }}>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<CameraAltIcon />}
+        onClick={handleScanDocument}
+        style={{
+          position: "absolute",
+          left: "100px",
+          top: "200px",
+          width: "200px",
+          height: "100px",
+          borderRadius: "20px",
+          fontSize: "20px"
+        }}
+      >
+        <Typography variant="h6" component="div">
+          Scanner un document
+        </Typography>
+      </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<PermIdentityIcon />} 
+        onClick={handleScanIdCard} 
+        style={{
+          position: "absolute", 
+          left: "400px", 
+          top: "200px", 
+          width: "200px", 
+          height: "100px",
+          borderRadius: "20px",
+          fontSize: "20px",
+        }}
+      >
+        <Typography variant="h6" component="div">
+          Carte d’identité
+        </Typography>
+      </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<FileCopyIcon />}
+        onClick={handleImportFile}
+        style={{
+          position: "absolute",
+          left: "100px",
+          top: "400px",
+          width: "200px",
+          height: "100px",
+          borderRadius: "20px",
+          fontSize: "20px",
+        }}
+      >
+        <Typography variant="h6" component="div">
+          Import de fichier
+        </Typography>
+      </Button>
+
+      {selectedFile && (
+      <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleConvertToPdf1}
+          style={{
+            position: "absolute",
+            left: "100px",
+            top: "400px",
+            width: "200px",
+            height: "100px",
+            borderRadius: "20px",
+            fontSize: "20px",
+          }}
+      >
+          <Typography variant="h6" component="div">
             Convertir en PDF
-          </Button>
-        </Grid>
-      </Grid>
-    </Box>
- );
-};
+          </Typography>
+      </Button>
+      )}
 
-export default Homepage;
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<ImageIcon />}
+        onClick={handleImportImage}
+        style={{
+          position: "absolute",
+          left: "400px",
+          top: "400px",
+          width: "200px",
+          height: "100px",
+          borderRadius: "20px",
+          fontSize: "20px"
+        }}
+      >
+        <Typography variant="h6" component="div">
+          Import de Photo
+        </Typography>
+      </Button>
+
+      {selectedImage && (
+      <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleConvertToPdf2}
+          style={{
+            position: "absolute",
+            left: "400px",
+            top: "400px",
+            width: "200px",
+            height: "100px",
+            borderRadius: "20px",
+            fontSize: "20px"
+          }}
+      >
+          <Typography variant="h6" component="div">
+            Convertir en PDF
+          </Typography>
+      </Button>
+      )}
+
+      {showCamera && (
+        <Camera
+          onTakePhoto={(dataUri) => {
+            handleTakePhoto(dataUri);
+          }}
+          idealFacingMode={FACING_MODES.ENVIRONMENT}
+        />
+      )}
+    </div>
+  );
+}
+
+export default HomePage;
