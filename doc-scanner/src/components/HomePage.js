@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import ImageIcon from '@mui/icons-material/Image';
@@ -7,7 +7,6 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 import jsPDF from "jspdf";
-import Typography from '@mui/material/Typography';
 
 function HomePage() {
   
@@ -95,130 +94,121 @@ function HomePage() {
 
   return (
     <div style={{
-      alignContent: "center"
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
     }}>
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<CameraAltIcon />}
-        onClick={handleScanDocument}
-        style={{
-          position: "absolute",
-          left: "100px",
-          top: "200px",
-          width: "200px",
-          height: "100px",
-          borderRadius: "20px",
-          fontSize: "20px"
-        }}
-      >
-        <Typography variant="h6" component="div">
-          Scanner un document
-        </Typography>
-      </Button>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<CameraAltIcon />}
+            onClick={handleScanDocument}
+            style={{
+              marginRight: "20px",
+              width: "200px",
+              height: "100px",
+              borderRadius: "20px",
+              fontSize: "20px"
+            }}
+          >
+            <Typography variant="h6" component="div">
+              Scan Document
+            </Typography>
+          </Button>
 
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<PermIdentityIcon />} 
-        onClick={handleScanIdCard} 
-        style={{
-          position: "absolute", 
-          left: "400px", 
-          top: "200px", 
-          width: "200px", 
-          height: "100px",
-          borderRadius: "20px",
-          fontSize: "20px",
-        }}
-      >
-        <Typography variant="h6" component="div">
-          Carte d’identité
-        </Typography>
-      </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<FileCopyIcon />}
+            onClick={handleImportFile}
+            style={{
+              width: "200px",
+              height: "100px",
+              borderRadius: "20px",
+              fontSize: "20px",
+            }}
+          >
+            <Typography variant="h6" component="div">
+              Import File
+            </Typography>
+          </Button>
+        </div>
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<PermIdentityIcon />} 
+            onClick={handleScanIdCard} 
+            style={{
+              marginRight: "20px",
+              width: "200px", 
+              height: "100px",
+              borderRadius: "20px",
+              fontSize: "20px",
+            }}
+          >
+            <Typography variant="h6" component="div">
+              ID Card
+            </Typography>
+          </Button>
 
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<FileCopyIcon />}
-        onClick={handleImportFile}
-        style={{
-          position: "absolute",
-          left: "100px",
-          top: "400px",
-          width: "200px",
-          height: "100px",
-          borderRadius: "20px",
-          fontSize: "20px",
-        }}
-      >
-        <Typography variant="h6" component="div">
-          Import de fichier
-        </Typography>
-      </Button>
-
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<ImageIcon />}
+            onClick={handleImportImage}
+            style={{
+              width: "200px",
+              height: "100px",
+              borderRadius: "20px",
+              fontSize: "20px"
+            }}
+          >
+            <Typography variant="h6" component="div">
+              Import Photo
+            </Typography>
+          </Button>
+        </div>
+      </div>
       {selectedFile && (
-      <Button
+        <Button
           variant="contained"
           color="secondary"
           onClick={handleConvertToPdf1}
           style={{
-            position: "absolute",
-            left: "100px",
-            top: "400px",
+            marginTop: "20px",
             width: "200px",
             height: "100px",
             borderRadius: "20px",
             fontSize: "20px",
           }}
-      >
+        >
           <Typography variant="h6" component="div">
-            Convertir en PDF
+            Convert to PDF
           </Typography>
-      </Button>
+        </Button>
       )}
-
-      <Button
-        variant="contained"
-        color="primary"
-        startIcon={<ImageIcon />}
-        onClick={handleImportImage}
-        style={{
-          position: "absolute",
-          left: "400px",
-          top: "400px",
-          width: "200px",
-          height: "100px",
-          borderRadius: "20px",
-          fontSize: "20px"
-        }}
-      >
-        <Typography variant="h6" component="div">
-          Import de Photo
-        </Typography>
-      </Button>
-
       {selectedImage && (
-      <Button
+        <Button
           variant="contained"
           color="secondary"
           onClick={handleConvertToPdf2}
           style={{
-            position: "absolute",
-            left: "400px",
-            top: "400px",
+            marginTop: "20px",
             width: "200px",
             height: "100px",
             borderRadius: "20px",
             fontSize: "20px"
           }}
-      >
+        >
           <Typography variant="h6" component="div">
-            Convertir en PDF
+            Convert to PDF
           </Typography>
-      </Button>
+        </Button>
       )}
-
       {showCamera && (
         <Camera
           onTakePhoto={(dataUri) => {
