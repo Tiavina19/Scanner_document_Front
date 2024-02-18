@@ -1,40 +1,36 @@
-# Cahier des charges - Scanner de document
+# Project Specifications - Document Scanner
 
 ## Introduction
-Le projet consiste à développer et tester un prototype fonctionnel de la fonctionnalité de reconnaissance de texte. Ce prototype servira de base pour évaluer la faisabilité technique de la reconnaissance de texte dans notre application de scanner de documents.
+The project aims to develop and test a functional prototype of the text recognition feature. This prototype will serve as a basis for evaluating the technical feasibility of text recognition in our document scanner application.
 
-## Objectif
-Le but principal est de créer une application de scanner de documents avec les fonctionnalités suivantes :
+## Objective
+The main goal is to create a document scanner application with the following features:
 
-1. Authentification des utilisateurs via une page de connexion.
-2. Redirection vers la page d'accueil après authentification.
-3. Fonctionnalités sur la page d'accueil :
-   - Scanner un document pour le convertir en PDF.
-   - Scanner une carte d'identité pour la convertir en PDF.
-   - Importer un fichier pour le convertir en PDF.
-   - Importer une photo pour la convertir en PDF.
-4. Implémentation d'un système Front-End et Back-End pour gérer les fonctionnalités mentionnées.
+1. User authentication via a login page.
+2. Redirection to the home page after authentication.
+3. Features on the home page:
+   - Scan a document and convert it to PDF.
+   - Scan an identity card and convert it to PDF.
+   - Import a file and convert it to PDF.
+   - Import a photo and convert it to PDF.
+4. Implementation of a Front-End and Back-End system to manage the mentioned features.
 
-## Fonctionnalités
+## Features
 
-### Partie Front-End
-- Création d'une interface utilisateur conviviale avec les fonctionnalités suivantes :
-  - Scanner un document.
-  - Convertir les fichiers en PDF.
-  - Convertir des photos en PDF.
-  - Prendre des photos et les convertir en PDF.
-[Accéder au référentiel Front-End](https://github.com/gitdeverstein/doc-scanner-Front?fbclid=IwAR0HU2RkycZaRX68X5fPcC1Es369RtcbMdna-W3ynIrt9DTq7L9JQ02tJJo)
-
-
-### Partie Back-End
-- Mise en place d'un système Back-End pour gérer les données et les opérations.
-- Implémentation des fonctionnalités CRUD (Create, Read, Update, Delete) pour :
-  - Les utilisateurs.
-  - Les scans de documents.
-- Mise en place d'un système d'authentification sécurisé pour les utilisateurs.
-[Accéder au référentiel Back-End (branche 'back_end')](https://github.com/Tiavina19/Scanner_document)
+### Front-End
+- Creation of a user-friendly interface with the following features:
+  - Scan a document.
+  - Convert files to PDF.
+  - Convert photos to PDF.
+  - Take photos and convert them to PDF.
+[Access the Front-End repository](https://github.com/gitdeverstein/doc-scanner-Front?fbclid=IwAR0HU2RkycZaRX68X5fPcC1Es369RtcbMdna-W3ynIrt9DTq7L9JQ02tJJo)
 
 
-
-
+### Back-End
+- Implementation of a Back-End system to manage data and operations.
+- Implementation of CRUD (Create, Read, Update, Delete) functionalities for:
+  - Users.
+  - Document scans.
+- Implementation of a secure authentication system for users.
+[Access the Back-End repository (back_end branch)](https://github.com/Tiavina19/Scanner_document)
 
