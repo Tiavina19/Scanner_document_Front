@@ -31,10 +31,6 @@ Le but principal est de créer une application de scanner de documents avec les 
   - Les scans de documents.
 - Mise en place d'un système d'authentification sécurisé pour les utilisateurs.
 
-## Détails techniques
-### Front-End
-- Utilisation de technologies web modernes telles que HTML, CSS, JavaScript.
-- Intégration de bibliothèques ou frameworks si nécessaire pour le scanner de documents et la manipulation de fichiers PDF.
 
 ### Back-End
 - Utilisation d'un langage de programmation côté serveur tel que Node.js, Python, etc.
