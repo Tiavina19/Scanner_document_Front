@@ -20,7 +20,7 @@ public class AuthController {
 
     @GetMapping("")
     public String welcome (){
-        return  "tongasoa";
+        return  "Votre serveur est bien démmarer";
     }
 
     @PostMapping("/sign-up")
