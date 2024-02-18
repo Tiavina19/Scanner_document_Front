@@ -23,6 +23,8 @@ Le but principal est de créer une application de scanner de documents avec les 
   - Convertir les fichiers en PDF.
   - Convertir des photos en PDF.
   - Prendre des photos et les convertir en PDF.
+[Accéder au référentiel Front-End](https://github.com/gitdeverstein/doc-scanner-Front?fbclid=IwAR0HU2RkycZaRX68X5fPcC1Es369RtcbMdna-W3ynIrt9DTq7L9JQ02tJJo)
+
 
 ### Partie Back-End
 - Mise en place d'un système Back-End pour gérer les données et les opérations.
@@ -30,6 +32,8 @@ Le but principal est de créer une application de scanner de documents avec les 
   - Les utilisateurs.
   - Les scans de documents.
 - Mise en place d'un système d'authentification sécurisé pour les utilisateurs.
+[Accéder au référentiel Back-End (branche 'back_end')](https://github.com/Tiavina19/Scanner_document)
+
 
 
 
