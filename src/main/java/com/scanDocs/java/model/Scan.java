@@ -1,11 +1,13 @@
 package com.scanDocs.java.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "scans")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Scan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

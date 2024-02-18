@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/scan")
+@RequestMapping("")
 public class ScanController {
     @Autowired
     private ScanService scanService;
@@ -25,10 +25,15 @@ public class ScanController {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
 
+    @GetMapping("/scans")
+    public ResponseEntity<List<Scan>> getAllScans() {
+        List<Scan> allScans = scanService.getAllScans();
+        return new ResponseEntity<>(allScans, HttpStatus.OK);
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<List<Scan>> getScanHistoryForUser(@PathVariable Long userId) {
         List<Scan> scanHistory = scanService.getScanHistoryForUser(userId);
         return new ResponseEntity<>(scanHistory, HttpStatus.OK);
     }
-
 }
