@@ -36,6 +36,4 @@ public class ScanController {
         List<Scan> scanHistory = scanService.getScanHistoryForUser(userId);
         return new ResponseEntity<>(scanHistory, HttpStatus.OK);
     }
-
-
 }

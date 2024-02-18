@@ -23,16 +23,6 @@ public class User {
     @Column(name = "username", length = 255)
     private String username;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Scan> scans;
-
-    public List<Scan> getScans() {
-        return scans;
-    }
-
-    public void setScans(List<Scan> scans) {
-        this.scans = scans;
-    }
 
     public Long getId() {
         return id;
